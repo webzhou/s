@@ -30,9 +30,9 @@
             <p class="s11inp"><span>* </span>电话：
                 <input type="tel" name="phone" placeholder="请正确填写您的手机号码" maxlength="11" pattern="^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$" required="" oninvalid="setCustomValidity('请填写您的有效手机号...')" oninput="setCustomValidity('')">
             </p>
-            <!-- <input type="submit" value="在线提交" class="online" id="ydbtn" style="border:none;cursor: pointer;margin-top: 0.5rem;display: block;"> -->
-            <a class="online" id="ydbtn">在线提交</a>
-            <!-- <iframe id="rfFrame" name="rfFrame" src="about:blank" style="display:none;z-index:-10000;"></iframe> -->
+             <input type="submit" value="在线提交" class="online" id="ydbtn" style="border:none;cursor: pointer;margin-top: 0.5rem;display: block;"> 
+            <!-- <a class="online" id="ydbtn">在线提交<a> -->
+            <iframe id="rfFrame" name="rfFrame" src="about:blank" style="display:none;z-index:-10000;"></iframe>
         </form>
         <div id="zz"></div>
     </div>
@@ -47,87 +47,35 @@
     </div>
     <script>
     $(function() {
-
-        $("#ydbtn").click(function() {
-            if ($('input[name="name"]').val() == '' || $('input[name="phone"]').val() == '') {
-                return false;
-            } else {
-                $('#YDUI_LOADING').show();
-                $('#ydbtn').attr("disabled", "disabled");
-                var formData = {
-                    name: $('input[name="name"]').val(),
-                    phone: $('input[name="phone"]').val()
-                };
-                $.ajax({
-                    type: "post",
-                    url: "ydmail.php",
-                    data: formData,
-                    dataType: "json",
-                    async: false,
-                    error: function(request) { //请求失败之后的操作
-                        return;
-                    },
-                    success: function(data) { //请求成功之后的操作
-                        if (data == 1) {
-                            setTimeout(function() {
-                                $('#YDUI_LOADING').hide();
-                                $('#ydbtn').val('发送成功');
-                                $('#zz').html('医生将在24小时与您联系');
-                            }, 3000);
-                        }
+        $("form").submit(function(){
+            $('#YDUI_LOADING').show();
+            $('#ydbtn').attr("disabled","disabled");
+            var formData = {
+                name  : $('input[name="name"]').val(),
+                phone : $('input[name="phone"]').val()
+            };
+            $.ajax({
+                type:"post",
+                url:"ydmail.php",
+                data:formData,
+                dataType:"json",
+                async:false,
+                error:function(request){//请求失败之后的操作
+                    return;
+                },
+                success:function(data){//请求成功之后的操作
+                    if(data==1){
+                        setTimeout(function () {
+                            $('#YDUI_LOADING').hide();
+                            $('#ydbtn').val('发送成功');
+                            $('#zz').html('医生将在24小时与您联系');
+                        }, 3000);
                     }
-                });
-            }
+                }
+            });
+
         });
-
-
-
-        // $("form").submit(function(){
-
-        //     $('#YDUI_LOADING').show();
-        //     $('#ydbtn').attr("disabled","disabled");
-
-
-
-        //     var formData = {
-        //         name  : $('input[name="name"]').val(),
-        //         phone : $('input[name="phone"]').val()
-        //     };
-        //     $.ajax({
-        //         type:"post",
-        //         url:"ydmail.php",
-        //         data:formData,
-        //         dataType:"json",
-        //         async:false,
-        //         error:function(request){//请求失败之后的操作
-        //             return;
-        //         },
-        //         success:function(data){//请求成功之后的操作
-        //             if(data==1){
-        //                 setTimeout(function () {
-        //                     $('#YDUI_LOADING').hide();
-        //                     $('#ydbtn').val('发送成功');
-        //                     $('#zz').html('医生将在24小时与您联系');
-        //                 }, 3000);
-        //             }
-        //         }
-        //     });
-
-        // });
     });
-
-
-
-
-    // $.ajax({ 
-    //     type: "post",
-    //     url: "http://3g.zkbdfyy.com/zt/ajax_send.php",
-    //     data: {tel: tel, wenti: wenti, from_url: from_url, category: 5, click: click}, 
-    //     cache: false, 
-    //     success: function(data) {
-
-    //     } 
-    // });
     </script>
 </body>
 
