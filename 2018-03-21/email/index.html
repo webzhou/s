@@ -50,10 +50,12 @@
         $("form").submit(function(){
             $('#YDUI_LOADING').show();
             $('#ydbtn').attr("disabled","disabled");
+            //这里获取用户提交的数据
             var formData = {
                 name  : $('input[name="name"]').val(),
                 phone : $('input[name="phone"]').val()
             };
+
             $.ajax({
                 type:"post",
                 url:"ydmail.php",
