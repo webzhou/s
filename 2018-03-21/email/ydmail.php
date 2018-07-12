@@ -13,8 +13,8 @@ $mailBody ='<style>.h{width:100%;height:42px;line-height:42px;float:left;} .t{wi
     '<div class="h"><div class="t">来源地址1：</div><div class="c">'.$url.'</div></div>';
 
 $mailSever = 'hyjk888@hyjkbdfyy.com'; //邮件服务器
-$mailSeverUser = 'hyjk888@hyjkbdfyy.com'; // SMTP服务器用户名
-$mailSeverPass = 'aqzzk3#2@1!23n';// SMTP服务器密码
+$mailSeverUser = 'xxx'; // SMTP服务器用户名
+$mailSeverPass = 'xxx';// SMTP服务器密码
 
 $mail             = new PHPMailer(); //PHPMailer对象
 $mail->CharSet    = 'UTF-8'; //设定邮件编码，默认ISO-8859-1，如果发中文此项必须设置，否则乱码
@@ -31,7 +31,12 @@ $mail->Subject = $mailSub;
 $mail->Body = $mailBody;
     
 $mail->AddAddress($mailUser, 'zyd');	//
-$status = $mail->send();
+
+if(empty($_POST['name'])||empty($_POST['phone'])){
+	return;
+}else{
+	$status = $mail->send();
+}
 //return
 if($status) {
   echo 1;
